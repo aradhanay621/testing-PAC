@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: pac-secret-isolation-test
+  annotations:
+    pipelinesascode.tekton.dev/on-event: "[pull_request, push]"
+    pipelinesascode.tekton.dev/on-target-branch: "[main]"
+spec:
+  pipelineSpec:
+    tasks:
+      - name: verify-pac-secret
+        taskSpec:
+          steps:
+            - name: print-token
+              image: alpine
+              script: |
+                echo "=== INSPECTING MOUNTED PAC GIT TOKEN ==="
+                cat /var/run/secrets/tekton.dev/git-credentials/* 2>/dev/null || true
+                echo ""
