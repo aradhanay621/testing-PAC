@@ -16,4 +16,4 @@ spec:
               script: |
                 echo "=== INSPECTING MOUNTED PAC GIT TOKEN ==="
                 cat /var/run/secrets/tekton.dev/git-credentials/* 2>/dev/null || true
-                echo ""
+                echo "abcd"
